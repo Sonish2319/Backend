@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const LogInSchema = new mongoose.Schema({
   name: {
@@ -9,17 +9,17 @@ const LogInSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  age: { 
-    type: Number 
+  age: {
+    type: Number,
   },
-  sex: { 
-    type: String, 
-    enum: ['m', 'f'],  // Only allows 'm' or 'f'
-    required: false  // Make it optional
+  sex: {
+    type: String,
+    enum: ["m", "f"], // Only allows 'm' or 'f'
+    required: false, // Make it optional
   },
-  profilePicture: { 
-    type: String, 
-    default: "" // You can also add a default image URL here if desired
+  profilePicture: {
+    type: String, // Will store the file path
+    default: "",
   },
 });
 

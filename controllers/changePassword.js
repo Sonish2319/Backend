@@ -1,4 +1,4 @@
-const User = require("../models/changePassword");
+const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
 const changePassword = async (req, res) => {
@@ -16,16 +16,7 @@ const changePassword = async (req, res) => {
       return res.status(404).json({ error: "User not found." });
     }
 
-    // Check if old password is correct
-    console.log(oldPassword);
-    console.log(user.password);
-    console.log(typeof oldPassword);
-    console.log(typeof user.password);
-    // const isMatch = await bcrypt.compare(oldPassword, user.password);
-
-    // if (!isMatch) {
-    //   return res.status(400).json({ error: "Old password is incorrect." });
-    // }
+    
     if (oldPassword != user.password) {
       return res.status(400).json({ error: "Old password is incorrect." });
     }
