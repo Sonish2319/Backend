@@ -12,7 +12,7 @@ const login = async (req, res) => {
     if (check.password === req.body.password) {
       req.session.users = check; // Store user in session
       console.log("Session set:", req.session.users); // Log session data to debug
-      res.render("home");
+      res.redirect("/");
     } else {
       res.send("Wrong password");
     }

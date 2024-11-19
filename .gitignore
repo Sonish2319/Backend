@@ -1,0 +1,10 @@
+# Ignore all content inside uploads/profilePictures
+uploads/profilePictures/*
+!uploads/profilePictures/.gitignore
+
+# Ignore all content inside uploads/PropertyPictures
+uploads/PropertyPictures/*
+!uploads/PropertyPictures/.gitignore
+
+
+node_modules/

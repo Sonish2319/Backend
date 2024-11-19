@@ -1,77 +1,45 @@
 const express = require("express");
 const router = express.Router();
+
+const home=require("../controllers/home");
 const { login, signup } = require("../controllers/loginsignup");
 const { changePassword } = require("../controllers/changePassword");
 const showprofile = require("../controllers/profile");
 const { addPost, editProperty, savePost } = require("../controllers/property");
-// const upload = require("../controllers/upload");
 const { upload, setUploadType } = require("../controllers/upload");
-const User = require("../models/user");
+const editProfile =require("../controllers/editprofile");
+const uplaodPic=require("../controllers/uploadProfilePicture");
+const logout=require("../controllers/logout");
 
-// Define POST routes for login, signup, and changePassword
+// Define routes
+
+//home
+router.get("/",home);
+//signup
+router.get("/signup", (req, res) => res.render("signup"));
 router.post("/signup", signup);
+//login
+router.get("/login", (req, res) => res.render("login"));
 router.post("/login", login);
+//change password
+router.get("/changePassword", (req, res) => res.render("changePassword"));
 router.post("/changePassword", changePassword);
-
-router.get("/edit/:id", editProperty);
-
-router.post(
-  "/property/edit",
-  setUploadType("property"),
-  upload.single("propertyPictures"),
-  savePost
-);
-
-router.get("/profile", showprofile);
-
+//edit property
+router.get("/property/edit/:id", editProperty);
+router.post("/property/edit",setUploadType("property"),upload.single("propertyPictures"),savePost);
 // Route for adding a property with image upload
-router.post(
-  "/addPost",
-  setUploadType("property"), // Set the upload type to "property"
-  upload.single("propertyPictures"), // Handle single file upload with the name "propertyPictures"
-  addPost // Your controller function to handle the form data
-);
-
-// router.get("/", savePost);
-
+router.get("/addProperty", (req, res) => res.render("add"));
+router.post("/addpProperty",setUploadType("property"),upload.single("propertyPictures"),addPost );
 // Update profile picture
-router.post(
-  "/uploadProfilePicture",
-  upload.single("profilePicture"),
-  async (req, res) => {
-    try {
-      // Check if session is available
-      if (!req.session.users) {
-        return res.status(400).send("User session not found. Please log in.");
-      }
+router.get("/uploadProfilePicture", (req, res) => res.render("uploadProfilePicture"));
+router.post("/uploadProfilePicture",setUploadType("profile"),upload.single("profilePicture"),uplaodPic);
 
-      const profilePicturePath = req.file
-        ? `/uploads/profilePictures/${req.file.filename}`
-        : "";
 
-      console.log("User session:", req.session.users); // Log session data
-
-      // Get user from the session
-      const user = await User.findOne({ name: req.session.users.name });
-
-      if (!user) {
-        return res.status(404).json({ error: "User not found." });
-      }
-
-      // Update user's profile picture in the database
-      user.profilePicture = profilePicturePath;
-      await user.save();
-
-      console.log(`Profile picture uploaded by user: ${user.name}`);
-
-      // Redirect or send a success response
-      // res.redirect(`/profile/${user._id}`);
-      res.redirect(`/profile`);
-    } catch (error) {
-      console.error("Error uploading profile picture:", error);
-      res.status(500).send("Server error");
-    }
-  }
-);
-
+// profile
+router.get("/profile", showprofile);
+//profile edit
+router.get("/profile/edit", (req, res) => res.render("editprofile"));
+router.post("/profile/edit",editProfile);
+//logout
+router.get("/logout",logout);
 module.exports = router;
