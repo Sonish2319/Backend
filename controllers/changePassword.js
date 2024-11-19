@@ -16,7 +16,6 @@ const changePassword = async (req, res) => {
       return res.status(404).json({ error: "User not found." });
     }
 
-    
     if (oldPassword != user.password) {
       return res.status(400).json({ error: "Old password is incorrect." });
     }

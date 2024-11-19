@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -21,6 +21,51 @@
         <li>
           <h3>{{this.title}}</h3>
           <p><strong>Price:</strong> Rs.{{this.price}}</p>
+          <p><strong>Address:</strong> {{this.address}}</p>
+          <p><strong>Description:</strong> {{this.description}}</p>
+          <a href="/property/{{this._id}}">View Details</a> |
+          <a href="/edit/{{this._id}}">Edit</a>
+        </li>
+        <hr>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>No properties available at the moment.</p>
+  {{/if}}
+</body>
+</html> --}}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+</head>
+<body>
+  <h1>Welcome to the Rental System</h1>
+  <nav>
+    <a href="/login">Login</a> |
+    <a href="/signup">Sign Up</a> |
+    <a href="/add">Add New Property</a>
+  </nav>
+
+  <!-- Check if properties exist -->
+  {{#if properties.length}}
+    <h2>All Properties</h2>
+    <ul>
+      {{#each properties}}
+        <li>
+          <h3>{{this.title}}</h3>
+          
+          <!-- Display property image if it exists -->
+          {{#if this.propertyPictures}}
+            <img src="{{this.propertyPictures}}" alt="{{this.title}}" style="width: 300px; height: auto;" />
+          {{else}}
+            <p><em>No image available</em></p>
+          {{/if}}
+          
+          <p><strong>Price:</strong> Rs. {{this.price}}</p>
           <p><strong>Address:</strong> {{this.address}}</p>
           <p><strong>Description:</strong> {{this.description}}</p>
           <a href="/property/{{this._id}}">View Details</a> |
