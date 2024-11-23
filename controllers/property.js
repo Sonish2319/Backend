@@ -67,6 +67,7 @@ const editProperty = async (req, res) => {
 };
 
 const savePost = async (req, res) => {
+    console.log("Request received:");
   const {
     propertyId,
     title,
@@ -79,18 +80,20 @@ const savePost = async (req, res) => {
     facilities,
     status,
   } = req.body;
-
   // Check if a new image file is uploaded
   const newPropertyPicturePath = req.file
     ? `/uploads/propertyPictures/${req.file.filename}`
     : null;
-
+    // console.log(`name ${req.file.filename}`);
+    if(req.file){
+      console.log('file is not emopty');
+    }
   try {
     // Find the property by ID
     const property = await Property.findById(propertyId);
 
     if (!property) {
-      return res.status(404).send("Property not found");
+      return res.status(404).json({message:error});
     }
 
     // Update property details
@@ -116,10 +119,10 @@ const savePost = async (req, res) => {
     // Save the updated property back to the database
     await property.save();
 
-    res.redirect("/");
+    res.status(200).json({message:'hello'});
   } catch (error) {
     console.error(error);
-    res.status(500).send("Error updating property");
+    res.status(500).json({message:'error'});
   }
 };
 

@@ -6,6 +6,9 @@ const path = require("path");
 const hbs = require("hbs");
 const Property = require("../models/property");
 const session = require("express-session");
+const cors = require('cors');
+app.use(cors()); // Add this in your backend server
+
 // Session configuration
 app.use(
   session({

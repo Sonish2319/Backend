@@ -16,7 +16,7 @@
   {{/if}}
 
   <a href="/signup">Sign Up</a> |
-  <a href="/add">Add New Property</a>
+  <a href="/addProperty">Add New Property</a>
 </nav>
 
 
@@ -39,8 +39,9 @@
           <p><strong>Price:</strong> Rs. {{this.price}}</p>
           <p><strong>Address:</strong> {{this.address}}</p>
           <p><strong>Description:</strong> {{this.description}}</p>
-          <a href="/property/{{this._id}}">View Details</a> |
-          <a href="/property/edit/{{this._id}}">Edit</a>
+          <a href="/property/details/{{this._id}}">View Details</a> |
+          <a href="/property/edit/{{this._id}}">Edit</a>|
+          <a href="/property/delete/{{this._id}}">  delete </a>
         </li>
         <hr>
       {{/each}}
